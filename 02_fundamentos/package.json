@@ -1,0 +1,19 @@
+{
+  "name": "02_fundamentos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "get-age": "^1.0.1",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
+  }
+}
