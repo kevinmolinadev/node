@@ -1,0 +1,20 @@
+{
+  "name": "04_aplication_console",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^20.10.1",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  },
+  "scripts": {
+    "dev": "ts-node src/app.ts",
+    "dev:nodemon": "nodemon"
+  },
+  "author": "Kevin Molina",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
