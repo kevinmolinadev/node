@@ -1,15 +1,12 @@
-import fs from "node:fs"
+import { yarg } from "./config/pugins/args.plugin";
+import { ServerApp } from "./presentation/server_app";
 
-const number = 8;
-let table = `====================\nTabla del ${number}\n====================`
-for (let i = 0; i < 10; i++) {
-    table += `\n${number} x ${i + 1} = ${number * (i + 1)}`
+
+(async () => {
+    app();
+})();
+
+async function app() {
+    const { b: base, l: limit, c: create, d: outputDir, n:name } = await yarg;
+    ServerApp.run({ base, limit, create, outputDir, name});
 }
-
-console.log(table);
-
-const path = "src/multiplication"
-//Create directory 
-fs.mkdirSync(path, { recursive: true });
-//Save file 
-fs.writeFileSync(`${path}/table-${number}.txt`, table);
