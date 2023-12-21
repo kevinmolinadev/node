@@ -1,3 +1,5 @@
+import { CreateTable, SaveTable } from "../domain/use_cases";
+
 interface ServerRunOptions {
     limit: number,
     base: number,
@@ -8,7 +10,11 @@ interface ServerRunOptions {
 
 export class ServerApp {
     static run({ limit, base, create, outputDir, name }: ServerRunOptions) {
-        console.log("Server running!");
-        console.log({ limit, base, create, outputDir, name });
+        const table = new CreateTable().execute({ base, limit });
+        console.log(table);
+        if (create) {
+            new SaveTable().execute({ fileContent: table, fileName: name, fileOutput: outputDir });
+            console.log("File created!");
+        }
     }
 }

@@ -11,7 +11,7 @@
     "typescript": "^5.3.2"
   },
   "scripts": {
-    "dev": "ts-node src/app.ts",
+    "dev": "ts-node src/app.ts -b 10",
     "dev:nodemon": "nodemon"
   },
   "author": "Kevin Molina",
