@@ -2,4 +2,5 @@
 **/dist
 **coverage
 **.log
+**/logs
 jwt
