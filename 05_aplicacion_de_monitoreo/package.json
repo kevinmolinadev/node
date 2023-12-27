@@ -14,11 +14,15 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.10.5",
+    "@types/nodemailer": "^6.4.14",
     "rimraf": "^5.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "cron": "^3.1.6"
+    "cron": "^3.1.6",
+    "dotenv": "^16.3.1",
+    "env-var": "^7.4.1",
+    "nodemailer": "^6.9.7"
   }
 }
