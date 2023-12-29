@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+enum SeverityLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model LogPostgresModel {
+  id        Int           @id @default(autoincrement())
+  message   String
+  level     SeverityLevel
+  origin    String
+  createdAt DateTime      @default(now())
+}

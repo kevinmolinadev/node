@@ -5,3 +5,6 @@
 **/logs
 jwt
 .env
+*/mongo
+**/postgres
+**/prisma/migrations
