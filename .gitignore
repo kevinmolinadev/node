@@ -6,5 +6,7 @@
 jwt
 .env
 */mongo
-**/postgres
+*/postgres
 **/prisma/migrations
+*/mongo-test
+*/postgres-test

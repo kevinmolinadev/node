@@ -11,4 +11,8 @@ export const envs = {
     MONGO_DB_NAME: env.get("MONGO_DB_NAME").required().asString(),
     MONGO_USER: env.get("MONGO_USER").required().asString(),
     MONGO_PASS: env.get("MONGO_PASS").required().asString(),
+    POSTGRES_URL: env.get("POSTGRES_URL").required().asUrlString(),
+    POSTGRES_DB_NAME: env.get("POSTGRES_DB_NAME").required().asString(),
+    POSTGRES_USER: env.get("POSTGRES_USER").required().asString(),
+    POSTGRES_PASS: env.get("POSTGRES_PASS").required().asString(),
 }

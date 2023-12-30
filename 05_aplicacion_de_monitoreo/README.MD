@@ -2,16 +2,29 @@
 
 Esta es una aplicación de monitoreo. La aplicación utiliza tecnologías como TypeScript, Prisma, Mongoose, y Nodemailer para ofrecer funcionalidades de monitoreo y gestión de datos.
 
-## Instalación
+## Configuración del Proyecto
 
 1. **Instalar Dependencias:**
    ```bash
    cd 05_aplicacion_de_monitoreo
    npm install
    ```
-
 2. **Configurar Variables de Entorno:**
-   - Crea un archivo `.env` en la raíz del proyecto y configura las variables de entorno necesarias. Puedes encontrar un ejemplo en `.env.template`.
+   
+   Crea un archivo `.env` en la raíz del proyecto y configura las variables de entorno necesarias. Puedes encontrar un ejemplo en `.env.template`.
+
+3. **Ejecutar el archivo docker:**
+   ```bash
+   docker compose up -d
+   ```  
+4. **Ejecutar el servicio de Prisma para la base de datos:**
+   ```bash
+   npx prisma migrate dev --name init
+   ``` 
+5. **Ejecutar el proyecto:**
+   ```bash
+   npm run dev
+   ```
 
 ## Tecnologías Utilizadas
 
