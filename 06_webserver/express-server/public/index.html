@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/logo.svg">
+    <!-- FONTS GOOGLE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Encriptador</title>
+</head>
+
+<body>
+    <div class="website">
+        <header class="head">
+            <div class="head_content flex">
+                <img src="./img/logo.svg" alt="logo">
+                <img src="./img/insignia.png" alt="insignia">
+            </div>
+        </header>
+        <div class="flex input">
+            <textarea id="entrada" placeholder="Ingresa el texto aqui"></textarea>
+        </div>
+        <div class="flex-column process">
+            <div class="flex process_message">
+                <img src="./img/advertencia.svg" alt="warnig">
+                <p>Solo letras minúsculas y sin acentos</p>
+            </div>
+            <div class="flex process_btn">
+                <button id="encriptar">Encriptar</button>
+                <button id="desencriptar">Desencriptar</button>
+            </div>
+        </div>
+        <div id="salida" class="flex-column output">
+            <picture>
+                <source media="(min-width: 1024px)" srcset="./img/personaje.svg">
+                <img class="output_img" src="./img/pixel.svg" alt="pixel">
+            </picture>
+            <div class="output_message">
+                <h2>Ningun mensaje fue encontrado</h2>
+            </div>
+            <div class="flex-column output_text">
+                <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex redes">
+        <h4>Kevin Molina Lazarte</h4>
+        <a target="_blank" href="https://github.com/molinalk/encriptador"><img src="./img/github.svg" alt="github"></a>
+        <a target="_blank" href="https://www.linkedin.com/in/kevin-molina-lazarte"><img src="./img/linkedin.svg"
+                alt="linkedin"></a>
+    </div>
+</body>
+<script src="./js/app.js"></script>
+
+</html>

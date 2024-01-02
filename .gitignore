@@ -10,3 +10,4 @@ jwt
 **/prisma/migrations
 */mongo-test
 */postgres-test
+**/keys

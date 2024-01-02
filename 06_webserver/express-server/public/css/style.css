@@ -1,0 +1,259 @@
+html {
+    box-sizing: border-box;
+    font-family: 'Inter';
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    font-family: inherit;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.website {
+    min-height: 100vh;
+    background-color: #F3F5FC;
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template: 80px 1.3fr 0.5fr/1fr;
+    grid-template-areas:
+        "head"
+        "input"
+        "process"
+        "output";
+}
+
+.head {
+    grid-area: head;
+}
+
+.head_content{
+    height: 100%;
+    justify-content: space-between;
+}
+.head_content > img:nth-child(1){
+    height: 60%;
+    align-self: center;
+}
+.head_content > img:nth-child(2){
+    height: 150%;
+    align-self: center;
+}
+
+.input {
+    grid-area: input;
+    justify-content: center;
+}
+
+.input textarea,
+.input textarea:focus {
+    width: 100%;
+    height: auto;
+    resize: none;
+    font-weight: 400;
+    font-size: 2rem;
+    background-color: #F3F5FC;
+    color: #0A3871;
+    border: none;
+    outline: none;
+}
+
+::placeholder {
+    color: #0A3871;
+}
+
+.process {
+    grid-area: process;
+    gap: 10px;
+}
+
+.process_message {
+    width: 100%;
+    gap: 6px;
+}
+
+.process_message p {
+    font-size: 12px;
+}
+
+.process_btn {
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.output_btn {
+    background-color: #ffffff;
+    color: #0A3871;
+}
+
+.process_btn>*,
+.output_btn {
+    padding: 24px;
+    border-radius: 24px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.process_btn>*:hover,
+.output_btn:hover {
+    cursor: pointer;
+}
+
+.process_btn :nth-child(1) {
+    background-color: #0A3871;
+    color: #F3F5FC;
+}
+
+.process_btn :nth-child(2) {
+    background-color: #F3F5FC;
+    color: #0A3871;
+    border-color: #0A3871;
+}
+
+.output {
+    width: calc(100% - 2rem);
+    grid-area: output;
+    background-color: #ffffff;
+    border-radius: 2rem;
+    margin: 0 1rem 1rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: #00000040 0px 25px 50px -12px;
+    overflow: hidden;
+}
+
+.output_message h2 {
+    margin-top: 0;
+}
+
+.output_text p {
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.copy {
+    position: fixed;
+    align-items: flex-end;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+@keyframes copy {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.copy .copy_message {
+    width: 100%;
+    text-align: center;
+    background-color: #11A15A;
+    animation: copy 2s alternate;
+}
+
+.redes {
+    background-color: #0A3871;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+    .process_btn>* {
+        width: 49%;
+    }
+}
+
+/* PC */
+@media (min-width: 1024px) {
+    .website {
+        padding: 2rem;
+        grid-template: 80px 1fr/75% 25%;
+        grid-template-areas:
+            "head output"
+            "input output"
+            "process output";
+    }
+
+    .input,
+    .process {
+        margin-inline: 15%;
+    }
+
+    .process {
+        margin-bottom: 2rem;
+    }
+
+    .process_btn :nth-child(2):hover {
+        background-color: #D8DFE8;
+        color: #000000;
+    }
+
+    .output_message,
+    .output_text {
+        padding-inline: 0.5rem;
+    }
+
+    .output_message h2 {
+        margin-block: 1rem;
+    }
+
+    .output {
+        margin: 0 0 0 1rem;
+        justify-content: center;
+    }
+
+    .output_img {
+        max-width: 100%;
+    }
+
+    .output_text p {
+        margin-top: 1rem;
+    }
+
+    .text {
+        overflow: hidden;
+        font-size: 1.5rem;
+    }
+
+    .output_btn {
+        margin-bottom: 1rem;
+    }
+
+    .output_text_after {
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+}
