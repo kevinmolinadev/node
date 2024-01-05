@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { todos } from '../../../../data/todo';
+import { PrismaClient, Status } from '@prisma/client';
+
+const prisma = new PrismaClient();
 export class Controller {
     constructor() { }
 
@@ -10,46 +13,110 @@ export class Controller {
     }
 
 
-    public getTodos = (req: Request, res: Response) => {
-        res.json(todos);
+    public getTodos = async (req: Request, res: Response) => {
+        try {
+            const todos = await prisma.todo.findMany();
+            return res.json({ todos });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "internal server error!"});
+        } finally {
+            prisma.$disconnect();
+        }
     }
 
-    public getTodoById = (req: Request, res: Response) => {
+    public getTodoById = async (req: Request, res: Response) => {
         const id = this.verifyID(req, res);
-        const todo = todos.find(todo => todo.id === id);
+        const todo = await prisma.todo.findUnique({
+            where: {
+                id: id as number
+            }
+        });
         if (!todo) return res.status(404).json({ message: `todo with id ${id} not found` });
         return res.json(todo);
     }
 
-    public addTodo = (req: Request, res: Response) => {
-        const { title, description, createdAt } = req.body;
-        if (title === undefined || description === undefined || createdAt === undefined) return res.status(400).json({ message: "Property is required" });
-        const newTodo = {
-            id: todos.length + 1,
-            title,
-            description,
-            createdAt: new Date(createdAt) || new Date()
+    public addTodo = async (req: Request, res: Response) => {
+        const { title } = req.body;
+        if (title === undefined) return res.status(400).json({ message: "Property is required" });
+        try {
+            const newTodo = await prisma.todo.create({
+                data: {
+                    title: title,
+                }
+            })
+            return res.json(newTodo);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "internal server error!"});
+        } finally {
+            prisma.$disconnect();
         }
-        todos.push(newTodo);
-        return res.json(newTodo);
     }
 
-    public updateTodo = (req: Request, res: Response) => {
-        const id = this.verifyID(req, res);
-        const todo = todos.find(todo => todo.id === id);
-        if (!todo) return res.status(404).json({ message: `todo with id ${id} not found` });
-        const { title, description } = req.body;
-        const update = { ...todo, title, description };
-        todos.splice(todos.indexOf(todo), 1, update);
-        return res.json(update);
+    private verifyStatus = (status: string): Status | null => {
+        const todoStatus: { [key: string]: Status } = {
+            "active": Status.ACTIVE,
+            "completed": Status.COMPLETED
+        }
+        if (todoStatus[status] === undefined) return null;
+        return todoStatus[status];
     }
 
-    public deleteTodo = (req: Request, res: Response) => {
+    public updateTodo = async (req: Request, res: Response) => {
         const id = this.verifyID(req, res);
-        const todo = todos.find(todo => todo.id === id);
-        if (!todo) return res.status(404).json({ message: `todo with id ${id} not found` });
-        todos.splice(todos.indexOf(todo), 1);
-        return res.json({ message: `todo with id ${id} eliminated` });
+        const todoExists = await prisma.todo.findUnique({
+            where: {
+                id: id as number
+            }
+        })
+        if (!todoExists) return res.status(404).json({ message: `todo with id ${id} not found` });
+        const { title, status: statusReq, done: doneReq, completedAt } = req.body;
+        const status = this.verifyStatus(statusReq);
+        const done = doneReq === "true";
+        if (!status) return res.status(40).json({ message: `this status "${status}" is not defined` });
+        try {
+            await prisma.todo.update({
+                where: {
+                    id: id as number
+                },
+                data: {
+                    title,
+                    status,
+                    done,
+                    completedAt: new Date(completedAt)
+                }
+            });
+            return res.json({ message: `todo with id ${id} updated!` });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "internal server error!"});
+        } finally {
+            prisma.$disconnect();
+        }
+    }
+
+    public deleteTodo = async (req: Request, res: Response) => {
+        const id = this.verifyID(req, res);
+        const todoExists = await prisma.todo.findUnique({
+            where: {
+                id: id as number
+            }
+        })
+        if (!todoExists) return res.status(404).json({ message: `todo with id ${id} not found` });
+        try {
+            await prisma.todo.delete({
+                where: {
+                    id: id as number
+                }
+            });
+            return res.json({ message: `todo with id ${id} eliminated` });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "internal server error!"});
+        } finally {
+            prisma.$disconnect();
+        }
 
     }
 }
