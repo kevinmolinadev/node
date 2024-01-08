@@ -11,8 +11,8 @@ datasource db {
 }
 
 enum Status {
-  ACTIVE
-  COMPLETED
+  active
+  completed
 }
 
 model Todo {
@@ -20,7 +20,6 @@ model Todo {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar
-  done      Boolean  @default(false)
-  status    Status   @default(ACTIVE)
+  status    Status   @default(active)
   completedAt DateTime? @db.Timestamp()
 }
