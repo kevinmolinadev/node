@@ -1,5 +1,5 @@
 import { prisma } from "../../data/postgres";
-import { CreateDto, ITodoDatasurce, TodoEntity, UpdateDto } from "../../domain";
+import { CreateDto, ITodoDatasurce, ResponseError, TodoEntity, UpdateDto } from "../../domain";
 
 
 export class TodoDatasurce implements ITodoDatasurce {
@@ -15,7 +15,7 @@ export class TodoDatasurce implements ITodoDatasurce {
                 id
             }
         })
-        if (!todo) throw `todo with id ${id} not found.`;
+        if (!todo) throw new ResponseError(`todo with id ${id} not found.`,404);
         return TodoEntity.fromObject(todo);
     }
 

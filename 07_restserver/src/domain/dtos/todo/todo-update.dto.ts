@@ -41,7 +41,7 @@ export class UpdateDto {
 
     static create = (object: { [key: string]: any }): [string | null, UpdateDto | null] => {
         const { id, title, status = null, completedAt = null } = object;
-        if (!title) return ["Title property is requiered.", null];
+        if (title !== undefined && title.length === 0) return ["The title can't a empty.", null];
         let newStatus = status;
         let newCompletedAt = completedAt;
         if (status) {

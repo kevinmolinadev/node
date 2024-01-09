@@ -8,3 +8,4 @@ export * from "./use-cases/todo/delete.use-case";
 export * from "./use-cases/todo/get.use-case";
 export * from "./use-cases/todo/get-all.use-case";
 export * from "./use-cases/todo/update-use-case";
+export * from "./errors/response-error";

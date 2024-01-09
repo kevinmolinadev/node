@@ -1,5 +1,5 @@
 {
-  "exclude": ["test", "node_modules", "dist"],
+  "exclude": ["tests", "node_modules", "dist", "jest.config.ts", "setup-test.ts"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
