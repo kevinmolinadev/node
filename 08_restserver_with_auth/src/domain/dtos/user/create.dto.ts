@@ -39,7 +39,7 @@ export class CreateUserDto {
         if (!Regex.email.test(email)) return [HttpError.badRequest("Email not valid."), null]
         const resultValidationPassword = this.basicValidation(password, "Password");
         if (resultValidationPassword[0] !== null) return resultValidationPassword;
-        if (password.length <= 6) return [HttpError.badRequest("Password can't be less than 6 digits long."), null]
+        if (!Regex.password.test(password)) return [HttpError.badRequest("Password can't be less than 6 digits long."), null];
         return [null, new CreateUserDto({ name, last_name, email, password })];
     }
 }
