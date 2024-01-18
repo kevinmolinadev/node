@@ -8,5 +8,6 @@ export interface IUserDatasource {
     getByEmail(email: string): Promise<UserEntity>,
     create(user: CreateUserDto): Promise<UserEntity>,
     update(user: UpdateUserDto): Promise<UserEntity>,
+    updateEmailValidated(email: string): Promise<boolean>,
     delete(id: string): Promise<UserEntity>
 }

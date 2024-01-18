@@ -14,7 +14,6 @@ async function main() {
     envs.MONGO_URL,
     envs.MONGO_DB
   ).start()
-  
   new Server({
     port: envs.PORT,
     routers: AppRouter.v1,

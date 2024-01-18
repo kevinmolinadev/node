@@ -1,12 +1,14 @@
 import { Router } from "express"
 import { Controller } from "./auth.controller";
-import { AuthService } from "../../../../services";
+import { AuthService, EmailService } from "../../../../services";
 import { UserMongo } from "../../../../../infraestructure";
+import { envs } from "../../../../../config";
 
 export class Route {
     static get routes() {
         const datasource = new UserMongo();
-        const service = new AuthService(datasource);
+        const emailService = new EmailService(envs.MAILER_SERVICE, envs.MAILER_EMAIL, envs.MAILER_KEY);
+        const service = new AuthService(datasource, emailService);
         const controller = new Controller(service);
         const auth = Router();
 

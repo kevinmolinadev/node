@@ -29,6 +29,14 @@ export class UserMongo implements IUserDatasource {
         const updateUser = await UserModel.updateOne({ _id: user.id }, user.getValues)
         return UserEntity.fromObject(updateUser);
     }
+
+    async updateEmailValidated(email: string): Promise<boolean> {
+        await UserModel.updateOne({ email }, {
+            email_validated: true
+        })
+        return true;
+    }
+
     async delete(id: string): Promise<UserEntity> {
         await this.getById(id);
         const user = await UserModel.deleteOne({ _id: id });
