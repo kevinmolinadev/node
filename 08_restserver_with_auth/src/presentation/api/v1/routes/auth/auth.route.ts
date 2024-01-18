@@ -8,7 +8,7 @@ export class Route {
     static get routes() {
         const datasource = new UserMongo();
         const emailService = new EmailService(envs.MAILER_SERVICE, envs.MAILER_EMAIL, envs.MAILER_KEY);
-        const service = new AuthService(datasource, emailService);
+        const service = new AuthService(datasource, emailService, envs.SEND_EMAIL_VALIDATION);
         const controller = new Controller(service);
         const auth = Router();
 

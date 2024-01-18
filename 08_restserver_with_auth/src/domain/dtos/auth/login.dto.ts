@@ -1,5 +1,5 @@
 import { Regex } from "../../../config";
-import { HttpError } from "../../erros/http.error";
+import { HttpError } from "../../errors/http.error";
 
 interface Options {
     email: string
@@ -9,9 +9,8 @@ export class LoginUserDto {
     public readonly email: string
     public readonly password: string
     constructor(options: Options) {
-        const { email, password } = options;
-        this.email = email
-        this.password = password
+        this.email = options.email
+        this.password = options.password
     }
 
     private static basicValidation(property: any, propertyName: string): [HttpError | null, LoginUserDto | null] {

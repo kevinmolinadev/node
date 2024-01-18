@@ -38,7 +38,6 @@ export class Server {
     });
 
   }
-
   public close() {
     this.serverListener.close();
   }

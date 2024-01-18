@@ -6,29 +6,24 @@ export class AuthService {
     constructor(
         private readonly datasource: IUserDatasource,
         private readonly emailService: EmailService,
+        private readonly sendEmailValidation: boolean
     ) { }
 
     public async validateEmail(token: string) {
-        const { email } = Jwt.verify(token) as { email: string };
-        if (!email) throw HttpError.unauthorized("Token invalid.");
+        const payload = await Jwt.verify(token);
+        const { email } = payload as { email: string };
         const user = await this.datasource.updateEmailValidated(email);
-        if (!user) throw HttpError.internalServerError("Error while validated email.")
+        if (!user) throw HttpError.internalServerError("Error validating the email.")
         return {
             message: `Your email ${email} is validated.`
         }
-    }
-
-    private generateToken(payload: any) {
-        const token = Jwt.generate(payload);
-        if (!token) throw HttpError.internalServerError("error while creating token.");
-        return token;
     }
 
     public async loginUser(user: LoginUserDto) {
         const userEntity = await this.datasource.getByEmail(user.email);
         const isPassword = Encryption.compare(user.password, userEntity.getPassword);
         if (!isPassword) throw HttpError.badRequest("Password incorrect.");
-        const token = this.generateToken(userEntity.basicData);
+        const token = await Jwt.generate({ id: userEntity.getId });
         return {
             user: userEntity.basicData,
             token
@@ -38,9 +33,11 @@ export class AuthService {
     public async registerUser(user: CreateUserDto) {
         const passwordHashed = Encryption.hash(user.password);
         const userRegister = await this.datasource.create({ ...user, password: passwordHashed });
-        const token = this.generateToken(userRegister.basicData);
-        const isSent = await this.sendValidationEmail(user.email);
-        if (!isSent) throw HttpError.internalServerError("Error when sending the validation email ");
+        const token = await Jwt.generate({ id: userRegister.getId });
+        if (this.sendEmailValidation) {
+            const isSent = await this.sendValidationEmail(user.email);
+            if (!isSent) throw HttpError.internalServerError("Error when sending the validation email ");
+        }
         return {
             user: userRegister.data,
             token
@@ -49,7 +46,7 @@ export class AuthService {
 
     private async sendValidationEmail(email: string) {
         const timeExpired = 10
-        const token = Jwt.generate({ email }, `${timeExpired}m`);
+        const token = await Jwt.generate({ email }, `${timeExpired}m`);
         const linkOfValidation = `${envs.WEBSERVICE_URL}/api/v1/auth/validate-email/${token}`;
         const html = `
         <html>

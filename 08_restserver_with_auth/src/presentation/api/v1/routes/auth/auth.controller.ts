@@ -16,10 +16,7 @@ export class Controller {
 
     loginUser = (req: Request, res: Response, next: NextFunction) => {
         const [error, loginUserDto] = LoginUserDto.create(req.body);
-        if (error) {
-            next(error);
-            return;
-        }
+        if (error) return next(error);
         this.service.loginUser(loginUserDto!)
             .then(result => res.json(result))
             .catch(e => next(e));
@@ -27,15 +24,9 @@ export class Controller {
 
     registerUser = async (req: Request, res: Response, next: NextFunction) => {
         const [error, userDto] = CreateUserDto.create(req.body);
-        if (error) {
-            next(error);
-            return;
-        }
-        try {
-            const user = await this.service.registerUser(userDto!);
-            res.json(user);
-        } catch (error) {
-            next(error);
-        }
-    };
-}
+        if (error) return next(error);
+        this.service.registerUser(userDto!)
+            .then(result => res.status(201).json(result))
+            .catch(e => next(e));
+    }
+};

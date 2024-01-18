@@ -37,6 +37,14 @@ export class UserEntity {
         this.updatedAt = updatedAt;
     }
 
+    get getId() {
+        return this.id;
+    }
+
+    get getPassword() {
+        return this.password;
+    }
+
     get data() {
         return {
             id: this.id,
@@ -58,10 +66,6 @@ export class UserEntity {
             lastName: this.lastName,
             email: this.email,
         }
-    }
-
-    get getPassword() {
-        return this.password;
     }
 
     static fromObject(object: { [key: string]: any }): UserEntity {

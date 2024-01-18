@@ -13,6 +13,7 @@ export const envs = {
   MAILER_EMAIL: get("MAILER_EMAIL").required().asString(),
   MAILER_KEY: get("MAILER_KEY").required().asString(),
   WEBSERVICE_URL: get("WEBSERVICE_URL").required().asString(),
+  SEND_EMAIL_VALIDATION: get("SEND_EMAIL_VALIDATION").required().asBool(),
 }
 
 
