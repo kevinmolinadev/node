@@ -1,4 +1,5 @@
 import express, { Router, Express } from 'express';
+import cors from "cors";
 import { handleErrors } from './middlewares';
 
 interface Options {
@@ -26,7 +27,6 @@ export class Server {
     //* Middlewares
     this.service.use(express.json()); // raw
     this.service.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
-
     //* Routers
     this.service.use("/api", this.routers);
 

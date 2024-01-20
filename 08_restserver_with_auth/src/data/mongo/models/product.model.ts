@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const CategorySchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Name is required."],
@@ -10,9 +10,18 @@ const CategorySchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    price: {
+        type: Number,
+        required: [true, "Price is required."],
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: "users",
+        required: true
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: "categories",
         required: true
     }
 }, {
@@ -21,11 +30,11 @@ const CategorySchema = new mongoose.Schema({
         updatedAt: 'updated_at'
     },
 })
-CategorySchema.set("toJSON", {
+ProductSchema.set("toJSON", {
     virtuals: true,
     versionKey: false,
     transform(doc, ret, options) {
         delete ret._id;
     },
 })
-export const CategoryModel = mongoose.model("categories", CategorySchema);
+export const ProductModel = mongoose.model("products", ProductSchema);
