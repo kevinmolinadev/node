@@ -10,3 +10,4 @@ jwt
 */mongo-test
 */postgres-test
 **/keys
+**/files

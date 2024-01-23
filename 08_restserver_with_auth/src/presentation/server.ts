@@ -1,6 +1,6 @@
 import express, { Router, Express } from 'express';
-import cors from "cors";
 import { handleErrors } from './middlewares';
+import fileUpload from "express-fileupload"
 
 interface Options {
   port: number;
@@ -27,6 +27,8 @@ export class Server {
     //* Middlewares
     this.service.use(express.json()); // raw
     this.service.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+    this.service.use(fileUpload()) // upload files
+
     //* Routers
     this.service.use("/api", this.routers);
 
