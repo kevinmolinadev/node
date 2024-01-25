@@ -11,3 +11,4 @@ jwt
 */postgres-test
 **/keys
 **/files
+.netlify

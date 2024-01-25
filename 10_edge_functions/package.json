@@ -1,0 +1,23 @@
+{
+  "name": "10_edge_functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "netlify:dev": "netlify dev",
+    "build":"rimraf dist && tsc",
+    "netlify:deploy": "npm run build && netlify deploy --prod" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.11",
+    "rimraf": "^5.0.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.5.1"
+  }
+}
