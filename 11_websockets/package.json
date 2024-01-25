@@ -1,0 +1,26 @@
+{
+  "name": "11_websockets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsnd --respawn --clear --env-file .env src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node --env-file .env dist/app.js",
+    "dev:client": "npx http-server public --reload"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.13",
+    "@types/ws": "^8.5.10",
+    "rimraf": "^5.0.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "env-var": "^7.4.1",
+    "ws": "^8.16.0"
+  }
+}
